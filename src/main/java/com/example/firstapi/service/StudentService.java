@@ -24,12 +24,24 @@ public class StudentService {
     // get student by msv
 
     public Student getStudent(int msv) {
-        return studentRepository.findById(msv).get();
+        for (int i = 0; i < getAllStudent().size(); i++) {
+            if (msv == getAllStudent().get(i).getMsv()) {
+                return getAllStudent().get(i);
+            }
+        }
+        return null;
     }
 
-    public void deleteStudent(int msv) {
-        studentRepository.deleteById(msv);
+    public String deleteStudent(int msv) {
+        for (int i = 0; i < getAllStudent().size(); i++) {
+            if (msv == getAllStudent().get(i).getMsv()) {
+                studentRepository.deleteById(msv);
+                return "Removed MSV: " + msv;
+            }
+        }
+        return "Not Exist";
     }
+
     // add new Student
     public Student addStudent(Student newStudent) {
         return studentRepository.save(newStudent);
@@ -37,8 +49,8 @@ public class StudentService {
 
     // update Student Detail
     public String updateStudent(Student newStudentDetail) {
-        for (int i = 0; i <= studentRepository.count(); i++) {
-            if (newStudentDetail.getMsv() == studentRepository.getReferenceById(i).getMsv()) {
+        for (int i = 0; i < getAllStudent().size(); i++) {
+            if (newStudentDetail.getMsv() == getAllStudent().get(i).getMsv()) {
                 studentRepository.save(newStudentDetail);
                 return "Updated";
             }

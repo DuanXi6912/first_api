@@ -32,8 +32,7 @@ public class StudentController {
     
     @DeleteMapping("/remove/{msv}")
     private String deleteStudent(@PathVariable int msv){
-        studentService.deleteStudent(msv);
-        return "Removed";
+        return studentService.deleteStudent(msv);
     }
     @PostMapping("/addStudent")
     private String addStudent(@RequestBody Student newStudent){
